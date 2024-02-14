@@ -22,7 +22,6 @@ names = []
 for i in range(0, 5):
     name = input("\nPlease enter a nane: ")
     names.append (name)
-    continue
 
 # Flag to track if a swap has occurred
 swapped = True
