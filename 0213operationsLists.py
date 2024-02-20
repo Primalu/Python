@@ -27,22 +27,23 @@
 # Run your program to ensure it works as expected. Try different scenarios, 
 # such as selling all seats, selling a few seats, and entering invalid seat numbers.
 
+# Defing seats
 seats = ["1A", "2A", "3A", "4A", "5A", "1B", "2B", "3B", "4B", "5B", "1C", "1D", "2D", "3D", "4D", "5D", "1E", "2E", "3E", "4E", "5E"]
 
-
+# Sending user base message
 seat = ""
 while seat != "done":
     print ("\n\nYou can buy multipul tickes, when you're finshed purching please type '0'\nThe following seats are avaible:")
     for seat in seats:
         print (seat)
 
-
+# Intacting with user
     seat = input("\nPlease enter the seats you want: ")
     if seat in seats:
         seats.remove(seat)
-    else:
-        print("Sorry thats not an avaible seat, please try again!")
-    if len(seats) == 0:
+    elif seat == '0':
         print("Thank you for shopping with us!")
         seat = "done"
+    else:
+        print("Sorry thats not an avaible seat, please try again!")
 
