@@ -3,9 +3,9 @@
  
 # Defining functions
 def square_area(side):
-    print("The area of the square is", side * side, "square units.")
+    print(f"The area of the square is {side * side} square units.")
 def circle_area(radius):
-    print("The area of the circle is", 3.14 * radius * radius,"square units.")
+    print(f"The area of the circle is {3.14 * radius * radius} square units.")
 
 # Calling function
 square_area(88)
