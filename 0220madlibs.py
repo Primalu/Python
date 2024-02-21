@@ -3,12 +3,12 @@
 # from the user and incorporate them into the song using named arguments. 
 # The goal is to practice using functions, user input, and string manipulation in Python.
 
+# Trigging of triggers
 def custom_song(animal, weather, luck_1, luck_2, time, person, verb, mystery):
-    words = get_words()
-    print(words)
+    animal, weather, luck_1, luck_2, time, person, verb, mystery = get_words()
     madlibs(animal, weather, luck_1, luck_2, time, person, verb, mystery)
 
-
+# Getting user imput
 def get_words():
     animal = input("Please enter a kind of animal:  ")
     weather = input("Please enter a kind of weather:  ")
@@ -21,6 +21,7 @@ def get_words():
 
     return animal, weather, luck_1, luck_2, time, person, verb, mystery
 
+# The madlib using user names
 def madlibs(animal, weather, luck_1, luck_2, time, person, verb, mystery):
     print(f"Life is like a {weather} here in {animal} - burg")
     print(f"Race cars, lasers, aeroplanes it's a, {animal} - blur!")
@@ -58,4 +59,5 @@ def madlibs(animal, weather, luck_1, luck_2, time, person, verb, mystery):
     print(f"Not pony tales or cotton tales, no")
     print(f"{animal} Tales! oo woo oo")
 
+# Calling Song
 custom_song()
