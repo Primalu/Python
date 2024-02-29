@@ -34,7 +34,7 @@ def spell_word():
     user_word = input("\n\nPlease enter a word you want conveted into NATO: ") # Getting user input
     capitalized_input = user_word.upper() # Captlizing the user input, perping it for interaction with nato_alphabet
     for letter in capitalized_input: # Letter each letter change
-        nato_word = nato_word + " " + nato_alphabet[letter] # Changing the letter
+        nato_word = nato_word + nato_alphabet[letter] + " " # Changing the letter
     print(f"The word {user_word} in nato would be {nato_word}.")
 
 
