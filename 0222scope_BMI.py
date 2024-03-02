@@ -4,15 +4,19 @@ and then categorizes their BMI into underweight, normal weight, overweight, or o
 
 '''
 
+# Getting user var
 WEIGHT = int(input("Please enter your weight in pounds (in pound): "))
 HEIGHT = int(input("Please enter your height in inches (in inches): "))
 
+# Converting user var into useable vars
 WeightKG = WEIGHT * 0.453592
 HeightM = HEIGHT * 0.0254
 
+# Caluting BMI
 BMI = WeightKG / (HeightM * HeightM)
 print(f"Your BMI is: {BMI:.2f}")
 
+# Printing BMI weight category
 if BMI < 18.5:
     print("You are in the underweight category.")
 elif BMI < 24.9:
