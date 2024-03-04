@@ -13,7 +13,7 @@ def bmi_finding(WEIGHT, HEIGHT):
     WeightKG = WEIGHT * 0.453592
     HeightM = HEIGHT * 0.0254
     BMI = WeightKG / (HeightM * HeightM)
-    print(f"Your BMI is: {BMI:.2f}")
+    print(f"\nYour BMI is: {BMI:.2f}")
     if BMI < 18.5:
         print("You are in the underweight category.")
     elif BMI < 24.9:
