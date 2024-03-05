@@ -1,0 +1,15 @@
+
+# Simple Python program to calculate the square of a number
+
+def square_number():
+    number = input("Enter a number to square: ")
+    try:
+        squared_number = int(number) ** 2
+        number = float(number)  # Convert input to float
+        print(f"The square of {number} is {squared_number}.")
+    except ValueError: #Incase users enters a not number
+        print("Error: Please enter a valid number.") 
+        square_number() # Recalling,
+
+square_number()
+    
