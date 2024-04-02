@@ -15,38 +15,84 @@ If the second password entry matches the first, display a success message. Other
 
 
 def main():
-    valid = False  # change to true if all condions are met
-    while not valid:
-        valid = True  # we will change to false if ANY requirement not met
-        print("""Password Requirements:\n
-            Between 8 to 20 characters long.\n
-            Contains at least one uppercase letter.\n
-            Contains at least one lowercase letter.\n
-            Includes at least one number.\n
-            Includes at least one symbol from the set: !@#$%&*\n""")
+    while True:
+        print("""\nPassword Requirements:
+                Between 8 to 20 characters long.
+                Contains at least one uppercase letter.
+                Contains at least one lowercase letter.
+                Includes at least one number.
+                Includes at least one symbol from the set: !@#$%&*\n""")
 
-        password = input("Please enter a valid password: ")
-        length = len(password)
-        if 8 <= length <= 20:
-            continue
-        else:
-            valid = False
-            print("Please make sure your password is beween 8 to 20 characters long")
+        valid = False  # change to true if all conditions are met
+        while not valid:
+            valid = True  # we will change to false if ANY requirement not met
 
-        is_upper = False  # change to true if found
-        # for loop stepping through characters in password. Look for an upper case.
+            # Checking Password Length
+            password = input("Please enter a valid password: ")
+            length = len(password)
+            if not (8 <= length <= 20):
+                print("Please make sure your password is between 8 to 20 characters long")
+                valid = False
+                continue
 
-        has_symbol = False
-        symbol = ['!', '@', '#']
-        for s in symbol:
-            for c in password:
-                if s == c:
-                    has_symbol == True
-        if has_symbol == False:
-            print("Please make sure your password includes at least one symbol from the set: !@#$%&*")
-            valid = False
-            continue
-        
+            # Checking Password Uppercase
+            has_upper = False # Change to true if found
+            for char in password:
+                if char.isupper():
+                    has_upper = True
+                    break
+            if not has_upper:
+                print("Please make sure your password contains at least one uppercase letter")
+                valid = False
+                continue
 
+            # Checking Password Lowercase
+            has_lower = False
+            for char in password:
+                if char.islower():
+                    has_lower = True
+                    break
+            if not has_lower:
+                print("Please make sure your password contains at least one lowercase letter")
+                valid = False
+                continue
+
+            # Checking Password Number
+            has_num = False
+            for char in password:
+                if char.isnumeric():
+                    has_num = True
+                    break
+            if not has_num:
+                print("Please make sure your password includes at least one number")
+                valid = False
+                continue
+
+            # Checking Password Symbol. Was having issues so I had IRL help with this section
+            has_symbol = False
+            symbols = set('!@#$%&*')
+            for char in password:
+                if char in symbols:
+                    has_symbol = True
+                    break
+            if not has_symbol:
+                print("Please make sure your password includes at least one symbol from the set: !@#$%&*")
+                valid = False
+
+        # Prompting the user to re-enter the password for confirmation
+        while True:
+            try:
+                confirm_password = input("Please re-enter your password for confirmation: ")
+                if confirm_password == password:
+                    print("Password successfully confirmed!")
+                    break
+                else:
+                    print("Passwords do not match. Please start over again.")
+                    valid = False  # Resetting valid to False to start the user over agan
+                    break
+            except:
+                print("An unexpected error has occurred") # Imma be honest, I dont know what error youd run into in this program.
+                continue
+        break
 
 main()
