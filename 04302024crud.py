@@ -79,13 +79,13 @@ def update():
         email = entry[3]
         print("1: " + lname + "\n2: " + fname + "\n3: " + phone + "\n4: " + email )
         choice  = int(input("Enter the number of the value that you want to change: "))
-        if choice == 0:
+        if choice == 1:
             lname = input("Please enter the new last name: ")
-        elif choice == 1:
+        elif choice == 2:
             fname = input("Please enter the new first name: ")
-        elif choice == 2: 
-            phone = input("Please enter a new phone number: ")
         elif choice == 3: 
+            phone = input("Please enter a new phone number: ")
+        elif choice == 4: 
             email = input("please enter a new email:  ")
     
         # delete old record
