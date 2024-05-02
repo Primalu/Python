@@ -1,109 +1,157 @@
-"""
-    CRUD application for creating an address book.
-    This will have some problems in it. you may solve the problems 
-    for extra credit:
-    Does not allow for duplicate names to be properly handled
-    Search searches the entire entry not a specific field
+'''
+    CRUD practice
+    We are creating a basic Create, Read, Write, Update, Delete program
+    Broken into small functions
 
-
-    🚨 Avoid project creep!
-
-
-"""
-
-
+'''
 def main_menu():
-    # present menu
-    # Check values 
-    # return choice
-    try:
-        print("\nMain Menu - Customer Directory")
-        print("1. Create new entry")
-        print("2. Read and display by name")
-        print("3. Update a record")
-        print("4. Delete a record")
-        print("5. Quit")
-        choice = int(input("Please enter the number of your selection: "))
-        if choice < 0 or choice > 5:
-            print("That is out of range, please try again.")
-            main_menu()
-        else:
-            return choice
-    except ValueError:
-        print("That is not a valid number. Please try again.")
-        main_menu()
-    except Exception as e:
-        print(f"main_menu: {e}")
-
+    print("Menu:")
+    choice = 0
+    while True:
+        try:
+            print("\nWelcome! You can create new email entries")
+            print("Change email address, delete entries, or display")
+            print("\n")
+            print("1. Create a new entry")
+            print("2. Display an entry by last name")
+            print("3. Update an existing entry.")
+            print("4. Remove an entry.")
+            print("5. Quit")
+            choice = int(input("Please enter the number of your selection:  "))
+            if 0 > choice < 6:
+                print("That is not a valid number. Try again.")
+                main_menu()
+            else:
+                return choice
+        except ValueError:
+                print("That is not a valid number. Try again.")
+                main_menu()
+        
 def check():
-    # read file to list
-    # if file not there create empty customer list
-    # return customer list
+    # Read the contents of the file into a list.
+    # If the file does not exist, create an empty list. 
     try:
-        file = open("customer_directory.txt", "r")
-        customer = file.readlines()
-        for line in customer:
-            print(line) # This was for test purposes!
+        file = open("customer_list.txt", 'r')# does the fle exist?
+        lines = file.readlines()
+        # for line in lines:
+        #     print(line) This was for test purposes!
         file.close()
-        return customer
+        return lines
     except FileNotFoundError:
-        print("That file does not exist. \n We will create a new file for you!")
-        customer = []
-        return customer
-    except Exception as e:
-        print(f"Check: {e}")
-    
-
-def save():
-    # save the file
-    print("Save")
-    main()
+        lines = []
+        print("Customer list does not exist. I will create a new file ")
+        return lines
+    except:
+        lines = []
+        return lines
 
 def create():
-    # create a new entry
-    # call the save  function
+    # create a new customer
     try:
         customer = check()
-        print("\n Please enter the customer information: ")
-        first_name = input("First name: ")
-        last_name = input("Last Name: ")
-        phone = input("Phone number: ")
-        email = input("Email address: ")
-        entry = {f"{first_name}, {last_name}, {phone}, {email}\n"}
+        fname = input("Please enter the customer\'s first name:  ")
+        lname = input("Please enter the customers\'s last name:  ")
+        phone = input("Please enter the customer's phone:  ")
+        email = input("Please enter the customer's email:  ")
+        entry = (fname + ", " + lname + ", " + phone + ", "  + email + "\n")
         customer.append(entry)
-        for line in customer:
-            print(line)
+        save(customer)
     except Exception as e:
-        print(f"Create: {e}")
+        print(e)
+    
     main()
 
 def read():
-    # will call the search function
-    # will display the found record
-    print("read")
+    # Display the requested file on screen 
+    output = search()
+    print(output)
     main()
 
-def search():
-    # called by - read, update, delete
-    # returns - record, index
-    print("Search")
-
 def update():
-    # updates a record
-    # uses search function
-    print("Update")
+    # update a record
+
+    try:
+        output, index_nbr= search()
+        entry = output.split(", ")
+        lname = entry[0]
+        fname = entry[1]
+        phone = entry[2]
+        email = entry[3]
+        print("1: " + lname + "\n2: " + fname + "\n3: " + phone + "\n4: " + email )
+        choice  = int(input("Enter the number of the value that you want to change: "))
+        if choice == 0:
+            lname = input("Please enter the new last name: ")
+        elif choice == 1:
+            fname = input("Please enter the new first name: ")
+        elif choice == 2: 
+            phone = input("Please enter a new phone number: ")
+        elif choice == 3: 
+            email = input("please enter a new email:  ")
+    
+        # delete old record
+        customer = check()
+        del customer[index_nbr]
+
+        # add new record
+        entry = (fname + ", " + lname + ", " + phone + ", "  + email + "\n")
+        customer.append(entry)
+        save(customer)
+    
+    except Exception as e:
+        print(f"Update problem! {e}")
+
     main()
 
 def delete():
-    # calls search
-    # verifies that it is the record to delete
-    # deletes the record
-    print("delete")
+    # Delete the selected file
+    try:
+        customer = check()
+        print("We will search for the entry you want to delete. ")
+        output, index_nbr= search()
+        print(output)
+        confirm = input("Do you want to delete this record? (y/n)  ")
+        if confirm.lower() == 'y':
+            print("deleting")
+            del customer[index_nbr]
+        else:
+            print("We will not delete. ")
+    except Exception as e:
+        print(f"Error deleting: {e}")
+    
     main()
+
+def search():
+    # So I can find what I am looking for!
+    try:
+        lname = input("Please enter the last name of the person you want to look for:  ")
+        customer = check()
+        found = ''
+        for c in customer:
+            if lname.upper() in c.upper():
+                found = c
+                index_nbr = customer.index(c)
+                return found, index_nbr
+    except Exception as e:
+        print(f"Read error! : {e}")
+    main()
+
+def save(output):
+    print("Saving")
+    for line in output:
+        print(line) 
+    try:
+        file = open("customer_list.txt", 'w')
+        for line in output:
+            file.write(line)
+        file.close()
+        print("File updated.")
+    except Exception as e:
+        print(f"Save did not work. \n {e}")
 
 
 
 def main():
+    # present menu and call appropriate functions
     choice = main_menu()
     try:
         if choice == 1:
@@ -115,8 +163,8 @@ def main():
         elif choice == 4:
             delete()
         else:
-            print("Goodbye!\n")
+            print("Goodbye!")
     except Exception as e:
-        print(f"Main: {e}")
-
+        print(e)
+        
 main()
